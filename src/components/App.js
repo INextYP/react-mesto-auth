@@ -27,7 +27,7 @@ function App() {
     const [loggedIn, setLoggedIn] = useState(false);
     const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
     const [tooltipStatus, setTooltipStatus] = useState({url: "", title: ""});
-    const [userData, setUserData] = useState();
+    const [userData, setUserData] = useState({});
     const history = useHistory();
 
     useEffect(() => {
@@ -164,15 +164,19 @@ function App() {
             })
             .catch((err) => {
                 console.log(`Ошибка: ${err}`)
+                handleInfoTooltipClick();
+                setTooltipStatus({
+                    url: imageFail, title: "Что-то пошло не так! Попробуйте ещё раз.",
+                });
             });
     };
 
     const tokenCheck = () => {
         if (localStorage.getItem("token")) {
-            let token = localStorage.getItem("token");
+            const token = localStorage.getItem("token");
             authApi.getContent(token).then((res) => {
                 if (res) {
-                    let userData = {
+                    const userData = {
                         email: res.data.email,
                     };
                     setLoggedIn(true);
@@ -205,7 +209,7 @@ function App() {
         <div className="page">
             <Switch>
                 <ProtectedRoute exact path="/" loggedIn={loggedIn}>
-                    <Header onClick={signOut}
+                    <Header link="login" onClick={signOut}
                             linkText="Выйти"
                             userData={userData}/>
 

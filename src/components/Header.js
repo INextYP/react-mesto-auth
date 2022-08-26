@@ -8,7 +8,7 @@ function Header(props) {
     let {email} = props.userData || {};
 
     return (<header className="header">
-        <Link to='*' className="header__link-logo" title="Место">
+        <Link to='/' className="header__link-logo" title="Место">
             <img className="header__logo" src={logo} alt="Логотип"/>
         </Link>
         <div className="header__login-panel">
